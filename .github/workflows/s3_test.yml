@@ -17,6 +17,8 @@ jobs:
       - name: Sync files to S3
         run: |
             echo "${{ github.event.push.head_commit.modified }}"
+            echo "${{ github.event.push.head_commit.added }}"
+            echo "${{ github.event.push.head_commit.removed }}"
 
 
 
