@@ -5,6 +5,7 @@ on:
     #   - closed
     # branches: [ "main"]
 
+
 jobs:
   build-and-deploy:
     if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true))
@@ -16,9 +17,5 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          echo "=============== list modified files ==============="
-          if [[ "$(git rev-parse HEAD)" == "$(git rev-parse --abbrev-ref HEAD)" ]]; then
-            git log --pretty=format:%n --name-only --max-count=1
-          else
-            git diff --name-only HEAD^ HEAD
-          fi
+          git diff --name-only HEAD^ HEAD >> ms.txt
+          cat ms.txt
