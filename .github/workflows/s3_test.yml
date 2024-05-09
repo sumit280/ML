@@ -1,13 +1,13 @@
 name: Uploading code to s3
 on:
-  push:
+  pull_request:
     # types:
     #   - closed
     # branches: ["master", "main"]
 
 jobs:
   build-and-deploy:
-    #if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true)) automation
+    if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true))
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +16,10 @@ jobs:
 
       - name: Sync files to S3
         run: |
-            git diff --name-only HEAD^ HEAD &gt; files.txt
-            echo files.txt
+          if: ${{ contains(github.event.pull_request.changed_files, 'automation/') }}
+            echo "sucesssssssss"
+          else
+            echo ${{github.event.pull_request.changed_files}}
 
 
 
