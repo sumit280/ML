@@ -16,10 +16,11 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          if: ${{ contains(github.event.pull_request.changed_files, 'automation/') }}
+          if: (${{ contains(github.event.pull_request.changed_files, 'automation/') }})
             echo "sucesssssssss"
           else
             echo ${{github.event.pull_request.changed_files}}
+
 
 
 
