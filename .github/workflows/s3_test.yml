@@ -16,7 +16,8 @@ jobs:
 
       - name: Sync files to S3
         run: |
-            echo "${{ github.event.head_commit }}"
+            git diff --name-only HEAD^ HEAD &gt; files.txt
+            echo files.txt
 
 
 
