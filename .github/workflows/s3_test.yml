@@ -17,5 +17,8 @@ jobs:
       - name: Sync files to S3
         run: |
           echo "=============== list modified files ==============="
-          git diff --name-only HEAD^ HEAD
-
+          if [[ "$(git rev-parse HEAD)" == "$(git rev-parse --abbrev-ref HEAD)" ]]; then
+            git log --pretty=format:%n --name-only --max-count=1
+          else
+            git diff --name-only HEAD^ HEAD
+          fi
