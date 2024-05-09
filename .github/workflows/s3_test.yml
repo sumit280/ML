@@ -16,10 +16,11 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          if: ${{ bool(github.event.push.head_commit.modified.grep('^folder/.*') ) }}; then
+          if: ${{ contains(github.event.push.head_commit.modified, 'automation/') }}; then
             echo "Changes detected in automation/ folder. Proceeding with sync."
           else
             echo "No changes detected in automation/ folder. Skipping sync."
+            echo "${{ github.event.push.head_commit.modified }}"
           fi
 
 
