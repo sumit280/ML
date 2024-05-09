@@ -1,19 +1,27 @@
-name: Uploading code to S3
+name: Uploading dag files to s3
 on:
   pull_request:
-    # types:
-    #   - closed
-    # branches: [ "main"]
+    types:
+      - closed
+    branches: ["master", "main"]
+    paths: 'automation/**'
 
 jobs:
   build-and-deploy:
     if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true))
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Sync files to S3
+      - name: Sync dag files to S3
         run: |
-          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+          if [ "${{ github.ref_name }}" == "main" ]
+          then
+            echo "mainnn......"
+
+          else
+            echo "devvv....."
+          fi
