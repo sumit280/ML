@@ -17,5 +17,4 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          git diff --name-only HEAD^ HEAD >> ms.txt
-          cat ms.txt
+          git log -1 --name-only --pretty=format:'' ${{ github.sha }}
