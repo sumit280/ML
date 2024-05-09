@@ -5,7 +5,6 @@ on:
     #   - closed
     # branches: [ "main"]
 
-
 jobs:
   build-and-deploy:
     if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true))
@@ -17,4 +16,4 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          git log -1 --name-only --pretty=format:'' ${{ github.sha }}
+          git log -1 --name-only --pretty=format:'' ${{ github.sha }} | tail -n +2
