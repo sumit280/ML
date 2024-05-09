@@ -19,4 +19,5 @@ jobs:
           echo "Changed files:"
           for file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }}); do
             echo $file
+          echo $(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
           done
