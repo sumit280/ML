@@ -1,0 +1,25 @@
+name: Uploading code to s3
+on:
+  pull_request:
+    types:
+      - closed
+    branches: ["master", "main"]
+
+jobs:
+  build-and-deploy:
+    if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true))
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Sync files to S3
+        run: |
+          if [ "${{ github.ref_name }}" == "main" ]
+          then
+            if: ${{ contains(github.event.pull_request.changed_files, 'automation/') }}
+              echo "SUCCESSSssssssss..."
+            else
+              echo "No changes detected in automation/ folder. Skipping sync."
+            fi
