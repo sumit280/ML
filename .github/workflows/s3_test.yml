@@ -1,4 +1,4 @@
-name: Uploading code to s3
+name: Uploading code to S3
 on:
   pull_request:
     # types:
@@ -16,8 +16,7 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          if [[ ${{ github.event.pull_request.changed_files }} -eq 1 ]]; then
-            echo "Success"
-          else
-            echo "Number of changed files: ${{ github.event.pull_request.changed_files }}"
-          fi
+          echo "Changed files:"
+          for file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }}); do
+            echo $file
+          done
