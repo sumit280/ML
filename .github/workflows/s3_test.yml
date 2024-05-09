@@ -16,4 +16,4 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          git log -1 --name-only --pretty=format:'' ${{ github.sha }} | tail -n +2
+          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
