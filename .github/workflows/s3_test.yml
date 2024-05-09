@@ -16,9 +16,10 @@ jobs:
 
       - name: Sync files to S3
         run: |
-            if [[ -n $(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep "^automation/") ]]; then
+            if [[ -n $(git diff --name-only "${{ github.sha }}~1" "${{ github.sha }}" | grep "^automation/") ]]; then
               echo "Step 3: There are changes in the main/ folder"
             fi
+
 
 
 
