@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    if: ((${{ github.event_name == 'pull_request'}}) and (${{github.event.pull_request.merged }} == true))
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
 
     steps:
@@ -16,16 +16,8 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          if: ${{ github.event.pull_request.changed_files == 1 }}
-            echo "sucesssssssss"
+          if [[ ${{ github.event.pull_request.changed_files }} -eq 1 ]]; then
+            echo "Success"
           else
-            echo ${{github.event.pull_request.changed_files}}
-
-
-
-
-
-
-
-
-
+            echo "Number of changed files: ${{ github.event.pull_request.changed_files }}"
+          fi
